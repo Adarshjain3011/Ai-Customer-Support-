@@ -10,12 +10,15 @@ class SupportFlow(Flow):
     def classify_intent(self):
         user_query = self.state["user_query"]   # ✅ FIXED: access dict directly
         result = intent_classifier.kickoff(user_query)
-        self.state["intent"] = result          # ✅ store in dict
-        return result
+        # Normalize agent output to string for downstream steps
+        intent_text = getattr(result, "output", None) or str(result)
+        self.state["intent"] = intent_text
+        return intent_text
 
     @listen(classify_intent)
     def lookup_kb(self, prev_output):
-        query = prev_output.get("intent", prev_output)  # handles dict or str
+        # prev_output can be a pydantic model; use its .output or str()
+        query = getattr(prev_output, "output", None) or str(prev_output)
         kb_result = kb_lookup_tool(query)
         self.state["kb"] = kb_result
         return kb_result
@@ -24,8 +27,9 @@ class SupportFlow(Flow):
     def generate_response(self, kb_result):
         input_str = f"Intent: {self.state['intent']}\nKB Info: {kb_result}\n"
         resp = response_generator.kickoff(input_str)
-        self.state["response"] = resp
-        return resp
+        response_text = getattr(resp, "output", None) or str(resp)
+        self.state["response"] = response_text
+        return response_text
 
     @listen(generate_response)
     def finalize(self, response):

@@ -1,0 +1,28 @@
+
+# Core agents/orchestration
+crewai>=0.58.0
+
+# LLM providers / wrappers
+langchain-groq>=0.1.5
+litellm>=1.43.8
+
+# LangChain + community integrations
+langchain>=0.2.12
+langchain-community>=0.2.11
+langchain-text-splitters>=0.2.2
+langchain-huggingface>=0.0.3
+
+# Vector store and embeddings
+faiss-cpu>=1.8.0.post1
+huggingface-hub>=0.24.6
+sentence-transformers>=3.0.1
+
+# PDF loading
+pypdf>=4.3.1
+
+# Dotenv for env vars
+python-dotenv>=1.0.1
+
+# Utilities
+tqdm>=4.66.4
+numpy>=1.26.4

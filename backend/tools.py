@@ -3,9 +3,12 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+import os
 
 # Load PDF and prepare retriever
-loader = PyPDFLoader("D:\\Projects\\GenAI\\Genai_projects\\SupportCrew\\FAQ.pdf")
+# Use project-relative path to `FAQ.pdf`
+pdf_path = os.path.join(os.path.dirname(__file__), "FAQ.pdf")
+loader = PyPDFLoader(pdf_path)
 docs = loader.load()
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 texts = text_splitter.split_documents(docs)

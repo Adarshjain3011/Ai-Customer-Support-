@@ -1,0 +1,47 @@
+What each key package does (beginner-friendly)
+crewai: Framework to coordinate multiple LLM “agents” with roles, tasks, and flows.
+langchain: Utilities to build LLM pipelines: tools, retrievers, chains, etc.
+langchain-community: Community integrations (loaders, vectorstores like FAISS).
+langchain-text-splitters: Splits long documents into chunks for embedding/search.
+langchain-huggingface: Integrates Hugging Face embeddings with LangChain.
+faiss-cpu: Fast vector index for semantic search (CPU version).
+huggingface-hub: Downloads models and datasets from Hugging Face.
+sentence-transformers: Turns text into vectors; we use all-MiniLM-L6-v2.
+pypdf: Reads PDFs so you can index their content.
+python-dotenv: Loads environment variables from .env.
+litellm: Unified LLM interface; here it routes to Groq with the model string "groq/gemma2-9b-it".
+langchain-groq: Groq integration for LangChain (can be useful if you integrate more).
+tqdm, numpy: Progress bars and numeric utilities (general support).
+How the flow actually works
+Input: a user message (e.g., “I didn’t receive my payment today.”).
+
+Step 1: intent_classifier outputs something like “Billing, high urgency, negative sentiment.”
+Step 2: kb_lookup_tool searches FAQ.pdf for relevant content.
+Step 3: response_generator writes a customer-facing reply using the intent + KB info.
+Step 4: If the intent implies escalation, escalation_agent decides; otherwise it returns an auto-response.
+In what order to start
+1) Create and activate a virtual environment
+PowerShell:
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+2) Install dependencies
+pip install -r requirements.txt
+3) Add your Groq API key
+Create .env in the same folder:
+GROQ_API_KEY=your_key_here
+4) Run the flow
+python crew.py
+Common pitfalls
+If PowerShell won’t let you activate the venv:
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+If a module isn’t found inside the venv:
+Make sure you see (.venv) in your prompt.
+Run python -m pip install -r requirements.txt again.
+If FAQ.pdf isn’t found:
+Ensure it’s in the same folder as tools.py.
+Where to customize
+Add or modify agent roles/goals in agents.py.
+Change the flow steps or add guards in crew.py.
+Replace FAQ.pdf or tweak chunk size/model in tools.py.
+Add new tasks in tasks.py if you transition to Crew-based orchestration.
+If you want, I can add inline docstrings to each file explaining these points directly in the code.
