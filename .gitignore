@@ -1,0 +1,52 @@
+# Python cache / build
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+*.manifest
+*.spec
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+.profile_default/
+ipython_config.py
+
+# Logs / databases
+*.log
+*.sqlite3
+db.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor configs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+
+# Build / dist
+build/
+dist/
+pip-wheel-metadata/
+*.egg-info/
+
+# Caches
+.mypy_cache/
+.pytest_cache/
+.cache/

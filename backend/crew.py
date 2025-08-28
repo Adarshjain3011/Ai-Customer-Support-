@@ -43,5 +43,8 @@ class SupportFlow(Flow):
 # Run the flow
 if __name__ == "__main__":
     flow = SupportFlow()
-    result = flow.kickoff(inputs={"user_query": "I didn't receive my payment today."})
+    result = flow.kickoff(inputs={"user_query": "Can I change my linked bank account?"})
     print(result)
+
+
+
